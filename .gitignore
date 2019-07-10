@@ -39,6 +39,9 @@
 # *.iml
 # *.ipr
 
+# Actually all files under idea/* should be excluded
+.idea/*
+
 # CMake
 cmake-build-*/
 
