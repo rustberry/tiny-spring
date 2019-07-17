@@ -19,7 +19,7 @@ import java.util.jar.JarFile;
 
 public class ClassUtil {
     private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
-    private static String basePkg;
+    private static String basePkg = PropUtil.getBasePkg();
 
     /**
      * Returns a set containing all classes annotated as Bean.
@@ -166,7 +166,7 @@ public class ClassUtil {
     }
 
     public static void main(String[] args) {
-//        System.out.println();
-        getClassSet("rust.tinyspring");
+        Set<Class<?>> s = getClassSet(basePkg);
+        assert s.size() >= 1;
     }
 }
