@@ -63,7 +63,7 @@ public class ClassUtil {
      * @param className name of the class
      * @return an instance of that class
      */
-    public static Class<?> loadClass(String className) throws ClassNotFoundException {
+    public static Class<?> loadClass(String className) {
         return loadClass(className, false);
     }
 
@@ -73,15 +73,14 @@ public class ClassUtil {
      * @param isInitialized whether it's been initialized
      * @return an instance of that class
      */
-    public static Class<?> loadClass(String className, boolean isInitialized) throws ClassNotFoundException {
+    public static Class<?> loadClass(String className, boolean isInitialized) {
         Class<?> cls;
         try {
             cls = Class.forName(className, isInitialized, getClassLoader());
             return cls;
         } catch (ClassNotFoundException e) {
             logger.error("Load class failure", e);
-            e.printStackTrace();
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 
@@ -156,13 +155,8 @@ public class ClassUtil {
     }
 
     public static void doAddClass(Set<Class<?>> classSet, String className) {
-        try {
-            Class clz = loadClass(className);
-            classSet.add(clz);
-        } catch (ClassNotFoundException e) {
-            logger.error("Error adding class by name");
-            throw new RuntimeException(e);
-        }
+        Class clz = loadClass(className);
+        classSet.add(clz);
     }
 
     public static void main(String[] args) {
