@@ -64,7 +64,7 @@ public class ClassUtil {
      * @return an instance of that class
      */
     public static Class<?> loadClass(String className) {
-        return loadClass(className, false);
+        return loadClass(className, true);
     }
 
     /**
@@ -157,6 +157,10 @@ public class ClassUtil {
     public static void doAddClass(Set<Class<?>> classSet, String className) {
         Class clz = loadClass(className);
         classSet.add(clz);
+    }
+
+    public static void setBasePkg(String pkgName) {
+        basePkg = pkgName;
     }
 
     public static void main(String[] args) {

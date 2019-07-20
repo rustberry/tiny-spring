@@ -18,7 +18,8 @@ public class IoCUtil {
                 Class<?> beanClass = entry.getKey();
                 Object beanInstance = entry.getValue();
                 // Get all fields of the class
-                Field[] beanFields = beanClass.getFields();
+                // Note not to use {@code getFields} which only returns public fields
+                Field[] beanFields = beanClass.getDeclaredFields();
                 for (Field field : beanFields) {
                     if (field.isAnnotationPresent(Inject.class)) {
                         Class<?> fieldClass = field.getType();
