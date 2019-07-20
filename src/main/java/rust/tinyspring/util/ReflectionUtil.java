@@ -11,7 +11,8 @@ public class ReflectionUtil {
     private static final Logger logger = LoggerFactory.getLogger(ReflectionUtil.class);
 
     /**
-     *
+     * Currently, this only returns new instance of classes that is accessible to this class
+     * and its nullary constructor accessible too.
      * @param cls
      * @return new instance of the class
      * @throws IllegalAccessException
@@ -22,7 +23,7 @@ public class ReflectionUtil {
         try {
             instance = cls.newInstance();
         } catch (IllegalAccessException e) {
-            logger.error("Access exception", e);
+            logger.error("The class or its nullary constructor is not accessible", e);
             throw new RuntimeException(e);
         } catch (InstantiationException e) {
             logger.error("Instantiation exception", e);

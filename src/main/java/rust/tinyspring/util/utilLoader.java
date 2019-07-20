@@ -8,9 +8,9 @@ public final class utilLoader {
     public static void init() {
         // All currently used utils
         Class<?>[] classes = {
-                ClassUtil.class,
-                BeanUtil.class,
-                ReflectionUtil.class,
+//                ClassUtil.class,
+//                BeanUtil.class,
+//                ReflectionUtil.class,
                 IoCUtil.class
         };
         for (Class<?> clz : classes) {
