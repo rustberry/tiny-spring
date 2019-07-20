@@ -1,10 +1,13 @@
-package rust.tinyspring.test.entity;
+package rust.tinyspring.entity;
+
+import rust.tinyspring.annotation.Controller;
 
 /**
  * Laser component for steel robot arms.
  */
+@Controller
 public class LaserComp {
-    LaserComp() {}
+//    LaserComp() {}
 
     public void spit() {
         System.out.println("Laser ray!");
