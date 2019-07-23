@@ -27,7 +27,7 @@ public class ClassUtil {
      * @return
      */
     public static Set<Class<?>> getBeanClassSet() {
-        return getBeanClassSet(Inject.class, Controller.class);
+        return getClassSetByAnnotation(Inject.class, Controller.class);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ClassUtil {
      * @param cls Variable args of {@code classes} that are defined as Bean
      * @return
      */
-    public static Set<Class<?>> getBeanClassSet(Class<? extends Annotation>... cls) {
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation>... cls) {
         Set<Class<?>> classSet = new HashSet<>();
 
         for (Class<?> c : getClassSet(basePkg)) {
