@@ -22,4 +22,8 @@ public class BeanUtil {
         if (!beanMap.containsKey(cls)) throw new RuntimeException("Cannot get bean for class: " + cls);
         return (T)beanMap.get(cls);
     }
+
+    public static void setBean(Class<?> cls, Object bean) {
+        beanMap.replace(cls, bean);
+    }
 }

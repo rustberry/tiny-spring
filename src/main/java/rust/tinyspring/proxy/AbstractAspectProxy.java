@@ -1,4 +1,4 @@
-package rust.tinyspring.annotation;
+package rust.tinyspring.proxy;
 
 import rust.tinyspring.proxy.Proxy;
 import rust.tinyspring.proxy.ProxyChain;

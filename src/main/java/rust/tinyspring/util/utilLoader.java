@@ -11,6 +11,7 @@ public final class utilLoader {
 //                ClassUtil.class,
 //                BeanUtil.class,
 //                ReflectionUtil.class,
+                AoPUtil.class,
                 IoCUtil.class
         };
         for (Class<?> clz : classes) {

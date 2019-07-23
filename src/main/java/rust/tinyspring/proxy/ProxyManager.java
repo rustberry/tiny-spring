@@ -1,24 +1,25 @@
 package rust.tinyspring.proxy;
 
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class ProxyManager {
 
+    /**
+     * Create the proxy instance of the target class {@code targetClass}. Using CGLib,
+     * it will be a subclass or subinterface of the target class.
+     * @param targetClass the class object of the target class
+     * @param proxyList all proxy instances for the target class
+     * @param <T> the type of {@code targetClass}
+     * @return a proxy instance of the target class
+     */
     @SuppressWarnings("unchecked")
     public static <T> T createProxy(final Class<?> targetClass, final List<Proxy> proxyList) {
         // This callback will be invoked when target's intercepted method is invoked
-        MethodInterceptor callback = new MethodInterceptor() {
-            @Override
-            public Object intercept(Object targetObject, Method targetMethod, Object[] methodParams, MethodProxy methodProxy) throws Throwable {
-                return new ProxyChain(targetClass, targetObject, targetMethod, methodProxy, methodParams, proxyList);
-            }
-        };
+        MethodInterceptor callback = (targetObject, targetMethod, methodParams, methodProxy)
+                -> new ProxyChain(targetClass, targetObject, targetMethod, methodProxy, methodParams, proxyList).doProxyChain();
         // To have finer control over instantiation could use the non-static method
         return (T) Enhancer.create(targetClass, callback);
     }

@@ -24,7 +24,7 @@ public class ClassUtil {
     /**
      * Returns a set containing all classes annotated as Bean.
      * Currently includes {@code Controller} and {@code Inject}
-     * @return
+     * @return a set containing all classes annotated as Bean
      */
     public static Set<Class<?>> getBeanClassSet() {
         return getClassSetByAnnotation(Inject.class, Controller.class);
