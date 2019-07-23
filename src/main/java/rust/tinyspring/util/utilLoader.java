@@ -8,14 +8,12 @@ public final class utilLoader {
     public static void init() {
         // All currently used utils
         Class<?>[] classes = {
-//                ClassUtil.class,
-//                BeanUtil.class,
-//                ReflectionUtil.class,
-                AoPUtil.class,
-                IoCUtil.class
+                BeanUtil.class,
         };
         for (Class<?> clz : classes) {
             ClassUtil.loadClass(clz.getName());
         }
+        AoPUtil.init();
+        IoCUtil.init();
     }
 }

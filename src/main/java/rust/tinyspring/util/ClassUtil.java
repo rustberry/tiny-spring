@@ -98,7 +98,7 @@ public class ClassUtil {
                 URL url = urls.nextElement();
                 if (url != null) {
                     String protocol = url.getProtocol();
-                    logger.trace("url: ",url,"protocol: ", protocol);
+//                    logger.trace("url: ",url,"protocol: ", protocol);
                     if (protocol.equals("file")) {
                         // In case file name contains whitespace
 //                        String packagePath = url.getPath().replaceAll("%20", " ");

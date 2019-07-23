@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 public class AoPUtil {
     private static final Logger logger = LoggerFactory.getLogger(AoPUtil.class);
 
-    static {
+    public static void init() {
         try {
             for (Map.Entry<Class<?>, List<Proxy>> entry : getTargetProxyChainMap().entrySet()) {
                 Class<?> targetClass = entry.getKey();

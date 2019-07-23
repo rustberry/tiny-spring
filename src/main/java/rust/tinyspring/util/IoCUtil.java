@@ -11,7 +11,7 @@ import java.util.Map;
  * 4. {@code setField}
  */
 public class IoCUtil {
-    static {
+    public static void init() {
         Map<Class<?>, Object> beanMap = BeanUtil.getBeanMap();
         if (!beanMap.isEmpty()) {
             for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
