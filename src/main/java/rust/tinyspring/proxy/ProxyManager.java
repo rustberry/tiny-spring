@@ -15,12 +15,13 @@ public class ProxyManager {
      * @param <T> the type of {@code targetClass}
      * @return a proxy instance of the target class
      */
-    @SuppressWarnings("unchecked")
+
     public static <T> T createProxy(final Class<?> targetClass, final List<Proxy> proxyList) {
         // This callback will be invoked when target's intercepted method is invoked
         MethodInterceptor callback = (targetObject, targetMethod, methodParams, methodProxy)
                 -> new ProxyChain(targetClass, targetObject, targetMethod, methodProxy, methodParams, proxyList).doProxyChain();
         // To have finer control over instantiation could use the non-static method
-        return (T) Enhancer.create(targetClass, callback);
+        @SuppressWarnings("unchecked") T t = (T) Enhancer.create(targetClass, callback);
+        return t;
     }
 }

@@ -20,7 +20,9 @@ public class BeanUtil {
 
     public static <T> T getBean(Class<T> cls) {
         if (!beanMap.containsKey(cls)) throw new RuntimeException("Cannot get bean for class: " + cls);
-        return (T)beanMap.get(cls);
+        // Parameterized type {@code T} is of the same type of {@code cls}
+        @SuppressWarnings("unchecked") T t = (T) beanMap.get(cls);
+        return t;
     }
 
     public static void setBean(Class<?> cls, Object bean) {
