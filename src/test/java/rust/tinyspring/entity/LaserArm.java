@@ -3,8 +3,10 @@ package rust.tinyspring.entity;
 import lombok.Getter;
 import rust.tinyspring.annotation.Controller;
 import rust.tinyspring.annotation.Inject;
+import rust.tinyspring.annotation.Laser;
 
 @Controller
+@Laser
 public class LaserArm {
     private String brand;
     @Inject
