@@ -38,10 +38,13 @@ public class ClassUtil {
      */
     // The method is SafeVarargs because it only uses varargs as single vars
     @SafeVarargs
-    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation>... cls) {
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> firstCls, Class<? extends Annotation>... cls) {
         Set<Class<?>> classSet = new HashSet<>();
 
         for (Class<?> c : getClassSet(basePkg)) {
+            if (c.isAnnotationPresent(firstCls)) {
+                classSet.add(c);
+            }
             for (Class<? extends Annotation> annotationCls : cls) {
                 if (c.isAnnotationPresent(annotationCls)) {
                     classSet.add(c);
