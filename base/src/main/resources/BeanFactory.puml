@@ -1,0 +1,38 @@
+@startuml
+
+'abstract class AbstractLit
+'abstract AbstractCollection
+'interface List
+'interface Collection
+
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+interface BeanFactory
+
+interface AutoWireCapableBeanFactory
+interface ListableBeanFactory
+interface HierarchicalBeanFactory
+
+BeanFactory <|-- AutoWireCapableBeanFactory
+BeanFactory <|-- ListableBeanFactory
+BeanFactory <|-- HierarchicalBeanFactory
+
+interface ConfigurableBeanFactory
+HierarchicalBeanFactory <|-- ConfigurableBeanFactory
+
+@enduml
