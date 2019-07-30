@@ -1,4 +1,4 @@
 package rust.tinyspring.factory;
 
-public class AbstractBeanFactory implements BeanFactory {
+public abstract class AbstractBeanFactory implements BeanFactory {
 }
