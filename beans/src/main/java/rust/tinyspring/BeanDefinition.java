@@ -14,6 +14,9 @@ public class BeanDefinition {
     @Setter
     private String beanName;
 
+    @Getter
+    private Class beanClass;
+
     private MutablePropertyValues propertyValues;
 
     public MutablePropertyValues getPropertyValues() {
