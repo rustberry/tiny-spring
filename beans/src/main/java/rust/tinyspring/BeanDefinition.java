@@ -1,25 +1,18 @@
 package rust.tinyspring;
 
-import lombok.Getter;
-import lombok.Setter;
+//import lombok.Getter;
+//import lombok.Setter;
 import rust.tinyspring.factory.MutablePropertyValues;
 
-public class BeanDefinition {
+public interface BeanDefinition {
 
-    @Getter
-    @Setter
-    private String beanClassName;
+    String getBeanName();
+    void setBeanName(String beanName);
 
-    @Getter
-    @Setter
-    private String beanName;
+    String getBeanClassName();
+    void setBeanClassName(String beanClassName);
 
-    @Getter
-    private Class beanClass;
+    Class getBeanClass();
 
-    private MutablePropertyValues propertyValues;
-
-    public MutablePropertyValues getPropertyValues() {
-        return this.propertyValues;
-    }
+    MutablePropertyValues getPropertyValues();
 }

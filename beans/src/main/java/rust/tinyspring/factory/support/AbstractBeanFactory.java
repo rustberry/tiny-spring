@@ -1,8 +1,9 @@
-package rust.tinyspring.factory;
+package rust.tinyspring.factory.support;
 
 import rust.tinyspring.BeanDefinition;
 import rust.tinyspring.BeanPostProcessor;
-import rust.tinyspring.exception.BeanException;
+import rust.tinyspring.exception.BeansException;
+import rust.tinyspring.factory.BeanFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,10 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     private List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
 
     @Override
-    public Object getBean(String name) throws BeanException {
+    public Object getBean(String name) throws BeansException {
         BeanDefinition beanDefinition = getBeanDefinition(name);
         if (beanDefinition == null) {
-            throw new BeanException("No such Bean: " + name);
+            throw new BeansException("No such Bean: " + name);
         }
 
         return doCreateBean(beanDefinition);
@@ -33,11 +34,11 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return bean;
     }
 
-    protected Object createBeanInstance(BeanDefinition beanDefinition) throws BeanException {
+    protected Object createBeanInstance(BeanDefinition beanDefinition) throws BeansException {
         try {
             return beanDefinition.getBeanClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e){
-            throw new BeanException("newInstance error", e);
+            throw new BeansException("newInstance error", e);
         }
     }
 
@@ -77,7 +78,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         this.beanPostProcessorList.add(beanPostProcessor);
     }
 
-    private BeanDefinition getBeanDefinition(String name) {
+    protected BeanDefinition getBeanDefinition(String name) {
         return beanDefinitionMap.get(name);
     }
 }
