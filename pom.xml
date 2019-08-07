@@ -10,6 +10,8 @@
     <modules>
         <module>beans</module>
         <module>base</module>
+        <module>context</module>
+        <module>core</module>
     </modules>
 
     <properties>

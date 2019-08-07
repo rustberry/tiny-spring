@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="petStore"
-          class="rust.tinyspring.service.v1.PetStoreService">
+          class="rust.tinyspring.beans.service.v1.PetStoreService">
 
     </bean>
 </beans>
