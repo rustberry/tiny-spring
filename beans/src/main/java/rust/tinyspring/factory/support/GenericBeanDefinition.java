@@ -2,10 +2,12 @@ package rust.tinyspring.factory.support;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import rust.tinyspring.BeanDefinition;
 import rust.tinyspring.exception.BeansException;
 import rust.tinyspring.factory.MutablePropertyValues;
 
+@Slf4j
 public class GenericBeanDefinition implements BeanDefinition {
     @Getter
     @Setter
@@ -26,6 +28,7 @@ public class GenericBeanDefinition implements BeanDefinition {
         try {
             clz = Class.forName(this.beanClassName);
         } catch (ClassNotFoundException e) {
+            log.error("Class: " + this.beanClassName + " not found");
             throw new BeansException("Class: " + this.beanClassName + " not found");
         }
         return clz;

@@ -1,5 +1,6 @@
 package rust.tinyspring.factory.support;
 
+import lombok.extern.slf4j.Slf4j;
 import rust.tinyspring.BeanDefinition;
 import rust.tinyspring.BeanPostProcessor;
 import rust.tinyspring.exception.BeansException;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 public abstract class AbstractBeanFactory implements BeanFactory {
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
     private List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
@@ -18,6 +20,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     public Object getBean(String name) throws BeansException {
         BeanDefinition beanDefinition = getBeanDefinition(name);
         if (beanDefinition == null) {
+            log.error("No such Bean: " + name);
             throw new BeansException("No such Bean: " + name);
         }
 
@@ -38,6 +41,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         try {
             return beanDefinition.getBeanClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e){
+            log.error("newInstance error", e);
             throw new BeansException("newInstance error", e);
         }
     }
