@@ -1,0 +1,106 @@
+@startuml
+
+' ---- layout starts
+together {
+    interface ConfigurableBeanFactory
+    class DefaultSingletonBeanRegistry
+    interface BeanDefinitionRegistry
+}
+ConfigurableBeanFactory -[hidden]> DefaultSingletonBeanRegistry
+DefaultSingletonBeanRegistry -[hidden]> BeanDefinitionRegistry
+' ---- layout ends
+
+interface SingletonBeanRegistry {
+    registerSingleton()
+    getSingleton()
+}
+interface SingletonBeanRegistry #Orange
+class DefaultSingletonBeanRegistry #Orange
+DefaultSingletonBeanRegistry ..|> SingletonBeanRegistry : implements
+
+
+class XmlBeanDefinitionReader {
+    BeanDefinitionRegistry registry
+}
+interface BeanDefinitionRegistry {
+    getBeanDefinition()
+    registerBeanDefinition()
+}
+XmlBeanDefinitionReader --* BeanDefinitionRegistry : has-a
+
+interface BeanDefinition
+class GenericBeanDefinition
+BeanDefinition <|.. GenericBeanDefinition : implements
+
+BeanDefinition o.. BeanDefinitionRegistry : aggregates/depends on
+
+
+interface BeanFactory {
+    getBean()
+}
+interface ConfigurableBeanFactory {
+    setBeanClassLoader()
+    getBeanClassLoader()
+}
+BeanFactory <|-- ConfigurableBeanFactory : extends
+
+
+class DefaultBeanFactory
+DefaultBeanFactory ....|> ConfigurableBeanFactory : implements
+DefaultBeanFactory ....|> BeanDefinitionRegistry : implements
+DefaultBeanFactory ---|> DefaultSingletonBeanRegistry : extends
+
+
+
+interface ApplicationContext #APPLICATION
+ApplicationContext ----|> ConfigurableBeanFactory : extends
+ApplicationContext -* DefaultBeanFactory : has-a
+
+
+abstract class AbstractApplicationContext {
+    {abstract} getResourceByPath()
+}
+abstract class AbstractApplicationContext #Pink
+AbstractApplicationContext ...|> ApplicationContext : implements
+AbstractApplicationContext .o Resource : depends on
+
+'class rust.tinyspring.context.support.ClassPathXmlApplicationContext
+'class rust.tinyspring.context.support.FileSystemXmlApplicationContext
+FileSystemXmlApplicationContext --|> AbstractApplicationContext
+ClassPathXmlApplicationContext --|> AbstractApplicationContext
+
+
+interface Resource {
+    getInputStream()
+}
+'class rust.tinyspring.core.io.ClassPathResource
+'class rust.tinyspring.core.io.FileSystemResource
+ClassPathResource ..|> Resource
+FileSystemResource ..|> Resource
+
+
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+@enduml

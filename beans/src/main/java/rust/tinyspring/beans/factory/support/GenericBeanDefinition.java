@@ -21,7 +21,31 @@ public class GenericBeanDefinition implements BeanDefinition {
     @Getter
     private Class beanClass;
 
+    private boolean singleton = true;
+
+    private boolean prototype = false;
+
+    @Getter
+    private String scope = SCOPE_DEFAULT;
+
     private MutablePropertyValues propertyValues;
+
+    @Override
+    public boolean isSingleton() {
+        return this.singleton;
+    }
+
+    @Override
+    public boolean isPrototype() {
+        return this.prototype;
+    }
+
+    @Override
+    public void setScope(String scope) {
+        this.scope = scope;
+        this.singleton = SCOPE_SINGLETON.equals(scope) || SCOPE_DEFAULT.equals(scope);
+        this.prototype = SCOPE_PROTOTYPE.equals(scope);
+    }
 
     @Override
     public Class<?> getBeanClass() {

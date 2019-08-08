@@ -22,7 +22,10 @@ public class XmlBeanDefinitionReader {
      * 定义 xml 中 <bean> 标签的属性
      */
     public static final String ID_ATTRIBUTE = "id";
+
     public static final String CLASS_ATTRIBUTE = "class";
+
+    public static final String SCOPE_ATTRIBUTE = "scope";
 
     private BeanDefinitionRegistry beanDefinitionRegistry;
 
@@ -58,6 +61,9 @@ public class XmlBeanDefinitionReader {
                 String beanID = el.attributeValue(ID_ATTRIBUTE);
                 String beanClassName = el.attributeValue(CLASS_ATTRIBUTE);
                 BeanDefinition beanDefinition = new GenericBeanDefinition(beanID, beanClassName);
+                if (el.attribute(SCOPE_ATTRIBUTE) != null) {
+                    beanDefinition.setScope(el.attributeValue(SCOPE_ATTRIBUTE));
+                }
 //                this.beanDefinitionMap.put(beanID, beanDefinition);
                 beanDefinitionRegistry.registerBeanDefinition(beanID, beanDefinition);
             }

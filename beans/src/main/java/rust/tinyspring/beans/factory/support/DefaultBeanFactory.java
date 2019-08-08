@@ -7,11 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import rust.tinyspring.base.util.ClassUtil;
 import rust.tinyspring.beans.BeanDefinition;
 import rust.tinyspring.beans.exception.BeansException;
-import rust.tinyspring.beans.factory.BeanFactory;
 import rust.tinyspring.beans.factory.config.ConfigurableBeanFactory;
 
 @Slf4j
-public class DefaultBeanFactory extends AbstractBeanFactory implements BeanDefinitionRegistry, ConfigurableBeanFactory {
+public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements BeanDefinitionRegistry, ConfigurableBeanFactory {
 
     /**
      * 存放 bean 的定义，不仅存在 Map 中，BeanDefinition 的子类 GenericBeanDefinition 中也要存储，方便扩展
@@ -35,7 +34,22 @@ public class DefaultBeanFactory extends AbstractBeanFactory implements BeanDefin
 */
 
     @Override
-    public Object createBeanInstance(BeanDefinition beanDefinition) throws BeansException {
+    public Object getBean(String name) {
+        BeanDefinition bd = getBeanDefinition(name);
+        if (bd == null) throw new BeansException("BeanDefinition for the name: " + name + " does not exist");
+        if (bd.isSingleton()) {
+            Object singletonBean = getSingleton(name);
+            // It's possible to be null
+            if (singletonBean == null) {
+                singletonBean = createBeanInstance(bd);
+                registerBeanDefinition(name, bd);
+            }
+            return singletonBean;
+        }
+        return createBeanInstance(bd);
+    }
+
+    protected Object createBeanInstance(BeanDefinition beanDefinition) throws BeansException {
         try {
             ClassLoader loader = getClassLoader();
             Class<?> clz = loader.loadClass(beanDefinition.getBeanClassName());

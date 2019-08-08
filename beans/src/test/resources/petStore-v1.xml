@@ -7,4 +7,10 @@
           class="rust.tinyspring.beans.service.v1.PetStoreService">
 
     </bean>
+    <bean id="petPrototype"
+          class="rust.tinyspring.beans.service.v1.PetPrototype"
+          scope="prototype">
+
+    </bean>
+
 </beans>
