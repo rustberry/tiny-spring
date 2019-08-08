@@ -8,7 +8,7 @@ import org.dom4j.io.SAXReader;
 import rust.tinyspring.beans.BeanDefinition;
 import rust.tinyspring.beans.exception.BeansException;
 import rust.tinyspring.beans.factory.support.BeanDefinitionRegistry;
-import rust.tinyspring.beans.factory.support.DefaultFactory;
+import rust.tinyspring.beans.factory.support.DefaultBeanFactory;
 import rust.tinyspring.beans.factory.support.GenericBeanDefinition;
 import rust.tinyspring.core.io.Resource;
 
@@ -26,7 +26,7 @@ public class XmlBeanDefinitionReader {
 
     private BeanDefinitionRegistry beanDefinitionRegistry;
 
-    public XmlBeanDefinitionReader(DefaultFactory factory) {
+    public XmlBeanDefinitionReader(DefaultBeanFactory factory) {
         this.beanDefinitionRegistry = factory;
     }
 
@@ -41,9 +41,7 @@ public class XmlBeanDefinitionReader {
     public void loadBeanDefinition(Resource resource) {
         InputStream inputStream = null;
         try {
-            // 获得类加载器
-            ClassLoader classLoader = this.getClass().getClassLoader();
-            // 通过类加载器获得文件输入流
+            // 通过 Resource 来获取，进一步掩盖底层牵扯到的细节：ClassLoader
             inputStream = resource.getInputStream();
 
 

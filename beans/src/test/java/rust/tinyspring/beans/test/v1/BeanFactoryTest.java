@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import rust.tinyspring.beans.BeanDefinition;
 import rust.tinyspring.beans.exception.BeansException;
-import rust.tinyspring.beans.factory.support.DefaultFactory;
+import rust.tinyspring.beans.factory.support.DefaultBeanFactory;
 import rust.tinyspring.beans.factory.support.xml.XmlBeanDefinitionReader;
 import rust.tinyspring.beans.service.v1.PetStoreService;
 import rust.tinyspring.core.io.ClassPathResource;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class BeanFactoryTest {
     String configFileName;
-    DefaultFactory factory;
+    DefaultBeanFactory factory;
     XmlBeanDefinitionReader reader;
     Resource resource;
 
@@ -27,7 +27,7 @@ public class BeanFactoryTest {
     @Before
     public void setUp() {
         configFileName = "petStore-v1.xml";
-        factory = new DefaultFactory();
+        factory = new DefaultBeanFactory();
         reader = new XmlBeanDefinitionReader(factory);
         resource = new ClassPathResource(configFileName);
     }
