@@ -13,6 +13,7 @@ public class FileSystemResource implements Resource {
 
     public FileSystemResource(String path) {
         if (path == null) throw new IllegalArgumentException("path must not be null");
+        // TODO ensure the path to be non-null AND valid path
         this.file = new File(path);
         this.path = path;
     }

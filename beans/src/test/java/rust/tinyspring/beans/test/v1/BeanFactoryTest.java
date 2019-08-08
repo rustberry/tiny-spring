@@ -8,6 +8,8 @@ import rust.tinyspring.beans.exception.BeansException;
 import rust.tinyspring.beans.factory.support.DefaultFactory;
 import rust.tinyspring.beans.factory.support.xml.XmlBeanDefinitionReader;
 import rust.tinyspring.beans.service.v1.PetStoreService;
+import rust.tinyspring.core.io.ClassPathResource;
+import rust.tinyspring.core.io.Resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,18 +21,20 @@ public class BeanFactoryTest {
     String configFileName;
     DefaultFactory factory;
     XmlBeanDefinitionReader reader;
+    Resource resource;
 
     // This will be invoked before every @Test
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         configFileName = "petStore-v1.xml";
         factory = new DefaultFactory();
         reader = new XmlBeanDefinitionReader(factory);
+        resource = new ClassPathResource(configFileName);
     }
 
     @Test
     public void invalidBean() {
-        reader.loadBeanDefinition(configFileName);
+        reader.loadBeanDefinition(resource);
         // This test aims at testing on actions that are deliberately designed to fail.
         try {
             factory.getBean("invalidBeanName");
@@ -44,7 +48,8 @@ public class BeanFactoryTest {
     @Test
     public void invalidXML() {
         try {
-            reader.loadBeanDefinition("invalidXml.xml");
+            resource = new ClassPathResource("invalidXml.xml");
+            reader.loadBeanDefinition(resource);
         } catch (Exception e) {
             return;
         }
@@ -53,7 +58,7 @@ public class BeanFactoryTest {
 
     @Test
     public void getBean() {
-        reader.loadBeanDefinition(configFileName);
+        reader.loadBeanDefinition(resource);
 
         BeanDefinition bd = factory.getBeanDefinition("petStore");
 

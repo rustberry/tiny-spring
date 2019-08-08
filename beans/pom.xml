@@ -40,6 +40,12 @@
       <artifactId>base</artifactId>
       <version>1.0.0</version>
     </dependency>
+      <dependency>
+          <groupId>rust.tinyspring</groupId>
+          <artifactId>core</artifactId>
+          <version>1.0.0</version>
+          <scope>compile</scope>
+      </dependency>
 
   </dependencies>
 
